@@ -8,10 +8,11 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 180 45% 15%;
+    /* Base colors updated to match Figma */
+    --background: 180 45% 12%;
     --foreground: 75 85% 80%;
 
-    --card: 180 40% 20%;
+    --card: 180 41% 21%;
     --card-foreground: 0 0% 100%;
 
     --popover: 180 40% 20%;
@@ -38,21 +39,40 @@ All colors MUST be HSL.
 
     --radius: 1rem;
 
-    /* Custom tokens for Spark Space */
-    --spark-yellow: 75 85% 60%;
-    --spark-teal: 180 45% 15%;
-    --spark-teal-dark: 180 50% 25%;
-    --spark-card: 180 40% 20%;
-    --spark-cyan: 180 100% 50%;
-    --spark-lime: 75 100% 50%;
-    
+    /* Custom tokens for Spark Space - Figma colors */
+    --spark-yellow: 75 85% 60%; /* #e6f024 */
+    --spark-header-bg: 180 55% 14%; /* #0d3a34 */
+    --spark-main-bg: 180 45% 12%; /* #172d2c */
+    --spark-card-bg: 180 41% 21%; /* #1b494f */
+    --spark-card-border: 180 42% 35%; /* #37797f */
+    --spark-title-yellow: 75 85% 86%; /* #d9fdc2 */
+    --spark-button-yellow: 75 85% 60%; /* #e6f024 */
+    --spark-badge-purple: 283 21% 45%; /* #865a88 */
+    --spark-badge-purple-border: 283 35% 16%; /* #361f37 */
+    --spark-badge-blue: 227 39% 48%; /* #4557a5 */
+    --spark-badge-blue-text: 200 85% 89%; /* #d0e9fa */
+    --spark-dot-cyan: 180 60% 54%; /* #37cbde */
+    --spark-dot-yellow: 75 85% 60%; /* #e6f024 */
+    --spark-coin-bg: 180 45% 12%; /* #172d2c */
+    --spark-progress-bg: 180 39% 34%; /* #37797f */
+    --spark-coin-gold: 51 100% 50%; /* #fddb00 */
+
+    /* Rarity tier colors (Fortnite-style) */
+    --rarity-legendary: 283 60% 50%; /* Gold/Orange */
+    --rarity-epic: 270 75% 60%; /* Purple */
+    --rarity-rare: 210 100% 60%; /* Blue */
+    --rarity-uncommon: 120 60% 50%; /* Green */
+    --rarity-common: 0 0% 70%; /* Gray */
+
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(180 45% 15%), hsl(180 50% 20%));
-    
+
     /* Shadows */
     --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
     --shadow-button: 0 4px 12px rgba(196, 245, 51, 0.3);
-    
+    --shadow-header: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    --shadow-coin: 0px -4px 24px -13px rgba(230, 240, 36, 0.33), 0px 14px 17.4px -19px rgba(230, 240, 36, 0.33);
+
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
