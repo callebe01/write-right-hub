@@ -48,7 +48,8 @@ const QuestWriter = () => {
         "Good thinking! Try describing what you see in more detail.",
         "You're on the right track! What else can you add?",
         "Let's break this down together. What's the main point you want to make?",
-        "Nice work! Keep going—you're doing great!"
+        "Nice work! Keep going—you're doing great!",
+        "I love where you're going with this! Here's some detailed feedback to help you level up your writing: First, consider adding more sensory details—what do you hear, smell, or feel in this moment? Second, think about showing emotions through actions rather than just stating them. For example, instead of saying 'I was nervous,' you could describe your sweaty palms or racing heartbeat. Third, vary your sentence structure to create rhythm and keep your reader engaged. You've got short, punchy sentences and longer, flowing ones—mix them up! Finally, remember that every detail should serve your story. Ask yourself: does this help my reader understand the scene or my character better? You're doing amazing work, and these tweaks will make it even stronger!"
       ];
 
       const randomResponse = sageResponses[Math.floor(Math.random() * sageResponses.length)];
@@ -73,8 +74,8 @@ const QuestWriter = () => {
       <DecorativeDots />
       <Header />
 
-      <main className="relative z-10 flex-1 flex items-center justify-center py-6 px-6">
-        <div className="w-full max-w-[1400px] h-[calc(100vh-150px)] flex gap-6">
+      <main className="relative z-10 flex-1 flex items-center justify-center py-3 px-6">
+        <div className="w-full max-w-[1400px] h-[calc(100vh-110px)] flex gap-6">
           {/* Left Panel - Writing Editor */}
           <div className="flex-1">
             <WritingEditor

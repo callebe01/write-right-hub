@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import AssignmentCard from "@/components/AssignmentCard";
 import DecorativeDots from "@/components/DecorativeDots";
-import mascotImage from "@/assets/mascot-hero.png";
+import AnimatedMascot from "@/components/AnimatedMascot";
 import timeTravelerImage from "@/assets/time-traveler.png";
 import pioneerLifeImage from "@/assets/pioneer-life.png";
 import miFamiliaImage from "@/assets/mi-familia.png";
@@ -109,12 +109,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Mascot - Positioned absolutely in top right */}
-        <img
-          src={mascotImage}
-          alt="Spark Space Mascot"
-          className="absolute right-[20px] top-[40px] w-[280px] h-[263px] object-contain animate-float pointer-events-none"
-        />
+        {/* Mascot - Spinning transformation animation */}
+        <AnimatedMascot />
       </main>
     </div>
   );

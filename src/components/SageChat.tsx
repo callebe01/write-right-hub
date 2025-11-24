@@ -18,6 +18,9 @@ const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Progressive disclosure: shrink avatar after conversation starts
+  const hasConversationStarted = messages.length > 1;
+
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,11 +41,15 @@ const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
   };
 
   return (
-    <div className="h-full bg-spark-card-bg border-[7px] border-spark-card-border rounded-[26px] flex flex-col">
-      <div className="flex flex-col h-full p-9 gap-5">
-        {/* Sage Avatar */}
+    <div className="h-full bg-spark-card-bg border-[4px] border-spark-card-border rounded-[26px] flex flex-col">
+      <div className="flex flex-col h-full p-6 gap-4">
+        {/* Sage Avatar - Adaptive Size */}
         <div className="flex justify-center">
-          <div className="w-[146px] h-[146px] bg-[#2a4a4e] rounded-full flex items-center justify-center overflow-hidden">
+          <div
+            className={`bg-[#2a4a4e] rounded-full flex items-center justify-center overflow-hidden transition-all duration-500 ${
+              hasConversationStarted ? 'w-[80px] h-[80px]' : 'w-[146px] h-[146px]'
+            }`}
+          >
             <img
               src={sageAvatar}
               alt="Sage"
@@ -52,7 +59,7 @@ const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto space-y-5 pr-2">
+        <div className="flex-1 overflow-y-auto space-y-4 pr-2">
           {messages.map((message) => (
             <div
               key={message.id}
