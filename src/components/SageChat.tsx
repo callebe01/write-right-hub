@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
-import mascotImage from "@/assets/mascot-hero.png";
+import sageAvatar from "@/assets/sage-avatar.png";
 
 interface Message {
   id: number;
@@ -42,12 +42,11 @@ const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
       <div className="flex flex-col h-full p-9 gap-5">
         {/* Sage Avatar */}
         <div className="flex justify-center">
-          <div className="w-[146px] h-[146px] bg-[#95c498] rounded-full flex items-center justify-center overflow-hidden">
+          <div className="w-[146px] h-[146px] bg-[#2a4a4e] rounded-full flex items-center justify-center overflow-hidden">
             <img
-              src={mascotImage}
+              src={sageAvatar}
               alt="Sage"
-              className="w-full h-full object-cover scale-150"
-              style={{ objectPosition: "50% 30%" }}
+              className="w-full h-full object-cover scale-110"
             />
           </div>
         </div>
