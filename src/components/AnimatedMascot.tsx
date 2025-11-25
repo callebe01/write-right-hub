@@ -9,7 +9,7 @@ const AnimatedMascot = () => {
   const [showSmoke, setShowSmoke] = useState(false);
 
   useEffect(() => {
-    // Transformation cycle: hero (2s) → spin+transform (0.6s) → casual (2s) → spin+transform (0.6s) → repeat
+    // Transformation cycle: hero (5.4s) → spin+transform (0.6s) → casual (5.4s) → spin+transform (0.6s) → repeat
     const transformationCycle = setInterval(() => {
       setIsSpinning(true);
       setShowSmoke(true);
@@ -24,7 +24,7 @@ const AnimatedMascot = () => {
         setIsSpinning(false);
         setShowSmoke(false);
       }, 600);
-    }, 4000); // Transform every 4 seconds
+    }, 12000); // Transform every 12 seconds
 
     return () => clearInterval(transformationCycle);
   }, []);
@@ -72,28 +72,84 @@ const AnimatedMascot = () => {
               transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
               className="absolute w-16 h-16 rounded-full bg-gray-300/60 blur-md"
             />
+
+            {/* Dust swirl around the base */}
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0.7 }}
+              animate={{ scale: 1.2, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="absolute left-1/2 bottom-6 -translate-x-1/2 w-48 h-48 rounded-full border-4 border-yellow-100/80 blur-lg"
+            />
+            <motion.div
+              initial={{ scale: 0.4, opacity: 0.8 }}
+              animate={{ scale: 1, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+              className="absolute left-1/2 bottom-4 -translate-x-1/2 w-32 h-32 rounded-full border-4 border-emerald-200/80 blur-md"
+            />
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Speed lines while Sage spins */}
+      <AnimatePresence>
+        {isSpinning && (
+          <>
+            <motion.div
+              key="speedline-left"
+              initial={{ opacity: 0, x: 40, y: 60, scaleY: 0 }}
+              animate={{ opacity: 0.6, x: -10, scaleY: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="absolute left-0 top-24 h-16 w-3 rounded-full bg-white/70 blur-sm"
+            />
+            <motion.div
+              key="speedline-right"
+              initial={{ opacity: 0, x: 220, y: 80, scaleY: 0 }}
+              animate={{ opacity: 0.6, x: 260, scaleY: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut", delay: 0.05 }}
+              className="absolute right-0 top-16 h-20 w-3 rounded-full bg-yellow-100/80 blur-sm"
+            />
           </>
         )}
       </AnimatePresence>
 
       {/* Mascot with Float + Spin Animation */}
-      <motion.img
-        key={currentMascot}
-        src={mascotImage}
-        alt="Spark Space Mascot"
-        className="w-full h-full object-contain animate-float"
-        animate={{
-          rotate: isSpinning ? 720 : 0,
-        }}
-        transition={{
-          rotate: {
-            duration: 0.6,
-            ease: "easeInOut",
-          },
-        }}
-        initial={{ opacity: 0 }}
-        exit={{ opacity: 0 }}
-      />
+      <div className="relative w-full h-full">
+        <AnimatePresence>
+          <motion.img
+            key={currentMascot}
+            src={mascotImage}
+            alt="Spark Space Mascot"
+            className="w-full h-full object-contain animate-float absolute inset-0"
+            animate={{
+              rotate: isSpinning ? 720 : 0,
+              opacity: 1,
+              scale: isSpinning ? 1.05 : 1,
+              filter: isSpinning ? "blur(0.5px) brightness(1.1)" : "none",
+            }}
+            transition={{
+              rotate: {
+                duration: 0.6,
+                ease: "easeInOut",
+              },
+              opacity: {
+                duration: 0.2,
+              },
+              scale: {
+                duration: 0.2,
+              },
+              filter: {
+                duration: 0.2,
+              },
+            }}
+            initial={{ opacity: 0, rotate: 0, scale: 0.9 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+          />
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

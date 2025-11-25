@@ -122,17 +122,6 @@ const AssignmentCard = ({
           </div>
         </div>
 
-        {/* Quest Features */}
-        <div className={`${rarityStyle.bg} rounded-xl p-3 border ${rarityStyle.border}/30 min-h-[84px]`}>
-          <div className="space-y-1">
-            {features.map((feature, index) => (
-              <div key={index} className="flex items-center gap-2 text-white/90 text-sm">
-                <span>{feature}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Accept Mission Button */}
         <button
           onClick={() => navigate(`/quest/${id}`)}
