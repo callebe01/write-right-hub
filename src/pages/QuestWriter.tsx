@@ -14,6 +14,7 @@ const QuestWriter = () => {
 
   const [editorContent, setEditorContent] = useState("");
   const [isInstructionsModalOpen, setIsInstructionsModalOpen] = useState(false);
+  const [isSageTyping, setIsSageTyping] = useState(false);
   const [chatMessages, setChatMessages] = useState([
     {
       id: 1,
@@ -41,6 +42,9 @@ const QuestWriter = () => {
     };
     setChatMessages([...chatMessages, studentMessage]);
 
+    // Show typing indicator
+    setIsSageTyping(true);
+
     // Mock Sage response (after a brief delay)
     setTimeout(() => {
       const sageResponses = [
@@ -60,8 +64,11 @@ const QuestWriter = () => {
         text: randomResponse,
         timestamp: new Date()
       };
+
+      // Hide typing indicator and add message
+      setIsSageTyping(false);
       setChatMessages(prev => [...prev, sageMessage]);
-    }, 1000);
+    }, 1500);
   };
 
   const handleGradeIt = () => {
@@ -70,7 +77,7 @@ const QuestWriter = () => {
   };
 
   return (
-    <div className="min-h-screen bg-spark-main-bg relative overflow-hidden flex flex-col">
+    <div className="min-h-screen bg-spark-main-atmospheric relative overflow-hidden flex flex-col">
       <DecorativeDots />
       <Header />
 
@@ -92,6 +99,7 @@ const QuestWriter = () => {
             <SageChat
               messages={chatMessages}
               onSendMessage={handleSendMessage}
+              isTyping={isSageTyping}
             />
           </div>
         </div>

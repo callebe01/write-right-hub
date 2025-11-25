@@ -42,7 +42,10 @@ All colors MUST be HSL.
     /* Custom tokens for Spark Space - Figma colors */
     --spark-yellow: 75 85% 60%; /* #e6f024 */
     --spark-header-bg: 180 55% 14%; /* #0d3a34 */
-    --spark-main-bg: 180 45% 12%; /* #172d2c */
+    --spark-main-bg: 180 45% 12%; /* #172d2c - Used as fallback */
+    --spark-main-bg-start: 180 45% 12%; /* Gradient start */
+    --spark-main-bg-mid: 180 50% 8%; /* Gradient middle - darker */
+    --spark-main-bg-end: 185 45% 12%; /* Gradient end - slight hue shift */
     --spark-card-bg: 180 41% 21%; /* #1b494f */
     --spark-card-border: 180 42% 35%; /* #37797f */
     --spark-title-yellow: 75 85% 86%; /* #d9fdc2 */
@@ -92,20 +95,39 @@ All colors MUST be HSL.
   .delay-75 {
     animation-delay: 75ms;
   }
-  
+
   .delay-100 {
     animation-delay: 100ms;
   }
-  
+
   .delay-150 {
     animation-delay: 150ms;
   }
-  
+
   .delay-200 {
     animation-delay: 200ms;
   }
-  
+
   .delay-300 {
     animation-delay: 300ms;
+  }
+
+  .bg-spark-main-atmospheric {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--spark-main-bg-start)) 0%,
+      hsl(var(--spark-main-bg-mid)) 50%,
+      hsl(var(--spark-main-bg-end)) 100%
+    );
+    position: relative;
+  }
+
+  .bg-spark-main-atmospheric::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
   }
 }

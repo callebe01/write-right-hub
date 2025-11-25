@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import AssignmentCard from "@/components/AssignmentCard";
 import DecorativeDots from "@/components/DecorativeDots";
@@ -16,7 +17,6 @@ export const assignments = [
     wordCount: "100 words",
     points: 25,
     rarity: "rare",
-    questType: "RARE QUEST",
     features: ["⚡ Speed Run", "⏱️ Time Limited", "💎 Rare Loot"],
     instructions: [
       "Imagine you've traveled back in time to an important historical event we've studied in class.",
@@ -32,7 +32,6 @@ export const assignments = [
     wordCount: "500 words",
     points: 50,
     rarity: "epic",
-    questType: "EPIC QUEST",
     features: ["⚔️ Boss Battle", "✨ XP++", "🌟 Glowing Border"],
     instructions: [
       "You are a pioneer traveling west during the 1800s. Life on the trail is difficult, but you're determined to reach your destination.",
@@ -48,7 +47,6 @@ export const assignments = [
     wordCount: "100 words",
     points: 15,
     rarity: "uncommon",
-    questType: "UNCOMMON QUEST",
     features: ["📅 Daily Challenge", "🎯 Easy Win", "🔄 Repeatable"],
     instructions: [
       "Write about your family! Describe the people who are important to you and what makes them special.",
@@ -64,7 +62,6 @@ export const assignments = [
     wordCount: "100 words",
     points: 20,
     rarity: "uncommon",
-    questType: "UNCOMMON QUEST",
     features: ["⛏️ Quest Chain", "🏆 Achievement", "📖 Story Mode"],
     instructions: [
       "The year is 1849, and gold has been discovered in California! You've decided to join the Gold Rush and seek your fortune.",
@@ -76,7 +73,7 @@ export const assignments = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-spark-main-bg relative overflow-hidden">
+    <div className="min-h-screen bg-spark-main-atmospheric relative overflow-hidden">
       <DecorativeDots />
 
       <Header />
@@ -92,19 +89,29 @@ const Index = () => {
 
           {/* Assignment Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {assignments.map((assignment) => (
-              <AssignmentCard
+            {assignments.map((assignment, index) => (
+              <motion.div
                 key={assignment.id}
-                id={assignment.id}
-                title={assignment.title}
-                image={assignment.image}
-                type={assignment.type}
-                wordCount={assignment.wordCount}
-                points={assignment.points}
-                rarity={assignment.rarity}
-                questType={assignment.questType}
-                features={assignment.features}
-              />
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20
+                }}
+              >
+                <AssignmentCard
+                  id={assignment.id}
+                  title={assignment.title}
+                  image={assignment.image}
+                  type={assignment.type}
+                  wordCount={assignment.wordCount}
+                  points={assignment.points}
+                  rarity={assignment.rarity}
+                  features={assignment.features}
+                />
+              </motion.div>
             ))}
           </div>
         </div>

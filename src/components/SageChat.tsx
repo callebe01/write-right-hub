@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import sageAvatar from "@/assets/sage-avatar.png";
 
@@ -12,9 +13,10 @@ interface Message {
 interface SageChatProps {
   messages: Message[];
   onSendMessage: (message: string) => void;
+  isTyping?: boolean;
 }
 
-const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
+const SageChat = ({ messages, onSendMessage, isTyping = false }: SageChatProps) => {
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -86,6 +88,35 @@ const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
               </div>
             </div>
           ))}
+
+          {/* Typing Indicator */}
+          {isTyping && (
+            <div className="flex justify-start">
+              <div className="flex flex-col gap-1.5 max-w-[90%]">
+                <p className="text-spark-yellow text-sm font-medium">Sage</p>
+                <div className="px-4 py-3 rounded-lg bg-spark-card-bg border border-white/10 rounded-tl-none">
+                  <div className="flex gap-1.5">
+                    <motion.div
+                      animate={{ y: [0, -8, 0] }}
+                      transition={{ repeat: Infinity, duration: 0.6, delay: 0 }}
+                      className="w-2 h-2 bg-spark-yellow rounded-full"
+                    />
+                    <motion.div
+                      animate={{ y: [0, -8, 0] }}
+                      transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }}
+                      className="w-2 h-2 bg-spark-yellow rounded-full"
+                    />
+                    <motion.div
+                      animate={{ y: [0, -8, 0] }}
+                      transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }}
+                      className="w-2 h-2 bg-spark-yellow rounded-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div ref={messagesEndRef} />
         </div>
 
@@ -99,13 +130,15 @@ const SageChat = ({ messages, onSendMessage }: SageChatProps) => {
             placeholder="Message"
             className="flex-1 bg-spark-progress-bg border border-spark-progress-bg rounded-lg px-3.5 py-2.5 text-white text-base placeholder:text-white/60 outline-none focus:border-spark-yellow/50 transition-colors"
           />
-          <button
+          <motion.button
             onClick={handleSend}
             disabled={!inputValue.trim()}
+            whileHover={{ scale: inputValue.trim() ? 1.1 : 1 }}
+            whileTap={{ scale: inputValue.trim() ? 0.9 : 1 }}
             className="bg-spark-progress-bg hover:bg-spark-yellow/20 p-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Send className="w-5 h-5 text-white" />
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>

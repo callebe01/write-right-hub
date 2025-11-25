@@ -76,6 +76,7 @@ export default {
       fontFamily: {
         display: ['Fredoka One', 'cursive'],
         game: ['Luckiest Guy', 'cursive'],
+        body: ['Lexend', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'card': 'var(--shadow-card)',

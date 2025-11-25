@@ -9,7 +9,6 @@ interface AssignmentCardProps {
   wordCount: string;
   points: number;
   rarity: string;
-  questType: string;
   features: string[];
 }
 
@@ -21,7 +20,6 @@ const AssignmentCard = ({
   wordCount,
   points,
   rarity,
-  questType,
   features
 }: AssignmentCardProps) => {
   const navigate = useNavigate();
@@ -63,6 +61,7 @@ const AssignmentCard = ({
         scale: 1.05,
         y: -12,
       }}
+      whileTap={{ scale: 0.98 }}
       transition={{
         type: "spring",
         stiffness: 400,
@@ -72,29 +71,40 @@ const AssignmentCard = ({
         boxShadow: `0 0 40px ${rarityStyle.glow}, 0 0 80px ${rarityStyle.glow}, 0 20px 40px rgba(0, 0, 0, 0.5)`
       }}
     >
+      {/* Hero Image at Top */}
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover"
+        />
+        {/* Gradient overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
+
+        {/* Rarity badge in corner */}
+        <div className={`absolute top-3 right-3 px-3 py-1.5 rounded-full font-black text-xs uppercase ${rarityStyle.bg} ${rarityStyle.text} border-2 ${rarityStyle.border} backdrop-blur-sm`}>
+          {rarity}
+        </div>
+
+        {/* Coins in top-left */}
+        <div className="absolute top-3 left-3 flex items-center gap-1 bg-black/60 rounded-full px-2 py-1 border border-spark-coin-gold/50 backdrop-blur-sm">
+          {/* Golden Coin Icon */}
+          <div className="relative w-6 h-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-spark-coin-gold to-yellow-600 rounded-full"></div>
+            <div className="absolute inset-0.5 bg-gradient-to-br from-spark-coin-gold to-yellow-500 rounded-full shadow-coin"></div>
+            <div className="absolute top-1 left-1/2 transform -translate-x-1/2 text-yellow-900 text-xs font-bold">$</div>
+          </div>
+          {/* Points */}
+          <span className="text-spark-coin-gold font-black text-sm px-1">+{points}</span>
+        </div>
+      </div>
+
       {/* Card Content */}
       <div className="p-6 flex flex-col gap-4">
-        {/* Image and Title Section */}
-        <div className="flex gap-4 items-start">
-          {/* Image */}
-          <div className="flex-shrink-0">
-            <img
-              src={image}
-              alt={title}
-              className="w-28 h-28 rounded-2xl object-cover border-2 border-white/10"
-            />
-          </div>
-
-          {/* Title and Quest Type */}
-          <div className="flex-1 flex flex-col gap-2">
-            <h3 className="font-game text-3xl text-white uppercase leading-tight h-[72px] line-clamp-2 overflow-hidden">
-              {title}
-            </h3>
-            <div className={`${rarityStyle.text} font-bold text-sm uppercase tracking-wide`}>
-              {questType}
-            </div>
-          </div>
-        </div>
+        {/* Title */}
+        <h3 className="font-game text-4xl text-white uppercase leading-tight break-words">
+          {title}
+        </h3>
 
         {/* Badges Row */}
         <div className="flex items-center gap-2 flex-wrap">
@@ -107,28 +117,17 @@ const AssignmentCard = ({
           <span className="px-3 py-1.5 rounded-full border-2 border-white/30 text-white font-bold text-sm bg-black/20">
             {wordCount}
           </span>
-
-          {/* Coins */}
-          <div className="flex items-center gap-1 bg-black/30 rounded-full px-2 py-1 border border-spark-coin-gold/50">
-            {/* Golden Coin Icon */}
-            <div className="relative w-6 h-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-spark-coin-gold to-yellow-600 rounded-full"></div>
-              <div className="absolute inset-0.5 bg-gradient-to-br from-spark-coin-gold to-yellow-500 rounded-full shadow-coin"></div>
-              <div className="absolute top-1 left-1/2 transform -translate-x-1/2 text-yellow-900 text-xs font-bold">$</div>
-            </div>
-
-            {/* Points */}
-            <span className="text-spark-coin-gold font-black text-sm px-1">+{points}</span>
-          </div>
         </div>
 
         {/* Accept Mission Button */}
-        <button
+        <motion.button
           onClick={() => navigate(`/quest/${id}`)}
-          className="mt-2 w-full bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-gray-900 font-black text-lg py-3 px-6 rounded-full uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-yellow-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="mt-2 w-full bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-gray-900 font-black text-lg py-3 px-6 rounded-full uppercase tracking-wide transition-colors duration-200 shadow-lg hover:shadow-xl border-2 border-yellow-300"
         >
           Accept Mission
-        </button>
+        </motion.button>
       </div>
 
       {/* Animated glow effect overlay */}

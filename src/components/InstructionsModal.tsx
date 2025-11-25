@@ -13,7 +13,6 @@ interface InstructionsModalProps {
     type: string;
     wordCount: string;
     rarity: string;
-    questType: string;
     instructions: string[];
     image: string;
     points: number;
@@ -69,9 +68,6 @@ const InstructionsModal = ({ isOpen, onClose, assignment }: InstructionsModalPro
               <h2 className="font-game text-3xl text-white uppercase leading-tight mb-2">
                 {assignment.title}
               </h2>
-              <div className={`${rarityStyle.text} font-bold text-sm uppercase tracking-wide mb-3`}>
-                {assignment.questType}
-              </div>
             </div>
           </div>
 

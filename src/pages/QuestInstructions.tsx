@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { assignments } from "./Index";
 import DecorativeDots from "@/components/DecorativeDots";
 import mascotImage from "@/assets/mascot-hero.png";
@@ -48,7 +49,7 @@ const QuestInstructions = () => {
   const rarityStyle = rarityColors[assignment.rarity] || rarityColors.common;
 
   return (
-    <div className="min-h-screen bg-spark-main-bg relative overflow-hidden">
+    <div className="min-h-screen bg-spark-main-atmospheric relative overflow-hidden">
       <DecorativeDots />
 
       <main className="relative z-10 min-h-screen flex items-center justify-center py-12 px-6">
@@ -73,9 +74,6 @@ const QuestInstructions = () => {
                 <h1 className="font-game text-4xl text-white uppercase leading-tight mb-2">
                   {assignment.title}
                 </h1>
-                <div className={`${rarityStyle.text} font-bold text-sm uppercase tracking-wide mb-3`}>
-                  {assignment.questType}
-                </div>
               </div>
             </div>
 
@@ -117,20 +115,24 @@ const QuestInstructions = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col items-center gap-4">
-            <button
+            <motion.button
               onClick={() => navigate(`/quest/${id}/write`)}
-              className="w-full max-w-md bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-gray-900 font-black text-2xl py-4 px-8 rounded-full uppercase tracking-wide transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-yellow-300 flex items-center justify-center gap-3"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full max-w-md bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-gray-900 font-black text-2xl py-4 px-8 rounded-full uppercase tracking-wide transition-colors duration-200 shadow-lg hover:shadow-xl border-2 border-yellow-300 flex items-center justify-center gap-3"
             >
               I'm Ready!
               <ArrowRight className="w-6 h-6" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
               onClick={() => navigate("/")}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="text-white font-bold text-lg underline hover:text-spark-yellow transition-colors"
             >
               Back to Assignments
-            </button>
+            </motion.button>
           </div>
         </div>
 

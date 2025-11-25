@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Bold, Italic, Underline, List, AlignLeft, AlignCenter, Link2, Image, Sparkles } from "lucide-react";
 
 interface WritingEditorProps {
@@ -36,8 +37,77 @@ const WritingEditor = ({
   const isWriting = currentWordCount > 0 || isFocused;
   const [showToolbar, setShowToolbar] = useState(true);
 
+  // Milestone celebration state
+  const [celebration, setCelebration] = useState<{ show: boolean; milestone: number; coins: number } | null>(null);
+  const prevWordCountRef = useRef(0);
+  const milestonesReached = useRef(new Set<number>());
+
+  // Check for milestone achievements
+  useEffect(() => {
+    const milestones = [25, 50, 75, 100];
+    const prevProgress = (prevWordCountRef.current / targetWords) * 100;
+    const currentProgress = progressPercent;
+
+    milestones.forEach((milestone) => {
+      if (
+        currentProgress >= milestone &&
+        prevProgress < milestone &&
+        !milestonesReached.current.has(milestone)
+      ) {
+        // Milestone reached!
+        milestonesReached.current.add(milestone);
+        const coinsEarned = milestone === 100 ? 10 : 5;
+        setCelebration({ show: true, milestone, coins: coinsEarned });
+
+        // Hide celebration after animation
+        setTimeout(() => {
+          setCelebration(null);
+        }, 2000);
+      }
+    });
+
+    prevWordCountRef.current = currentWordCount;
+  }, [currentWordCount, targetWords, progressPercent]);
+
   return (
     <div className="h-full bg-spark-card-bg border-[4px] border-spark-card-border rounded-[26px] flex flex-col relative overflow-hidden">
+      {/* Milestone Celebration Overlay */}
+      <AnimatePresence>
+        {celebration?.show && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="absolute inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ y: 20 }}
+              animate={{ y: 0 }}
+              className="bg-gradient-to-br from-spark-yellow to-yellow-500 text-spark-header-bg rounded-3xl px-12 py-8 shadow-2xl text-center"
+            >
+              <motion.div
+                animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+                transition={{ duration: 0.5 }}
+                className="text-6xl mb-4"
+              >
+                🎉
+              </motion.div>
+              <h3 className="font-game text-4xl uppercase mb-2">
+                {celebration.milestone}% Complete!
+              </h3>
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <div className="relative w-10 h-10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-spark-coin-gold to-yellow-600 rounded-full"></div>
+                  <div className="absolute inset-1 bg-gradient-to-br from-spark-coin-gold to-yellow-500 rounded-full"></div>
+                  <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-yellow-900 text-lg font-bold">$</div>
+                </div>
+                <span className="font-black text-3xl">+{celebration.coins}</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Sticky Progress Bar Overlay (only visible when writing) */}
       {isWriting && (
         <div className="absolute top-0 left-0 right-0 z-30 bg-spark-card-bg/95 backdrop-blur-sm border-b border-spark-card-border px-5 py-2 transition-all duration-300">
@@ -85,20 +155,24 @@ const WritingEditor = ({
 
           {/* Action Buttons (top-right) */}
           <div className="flex gap-2 items-start flex-shrink-0">
-            <button
+            <motion.button
               onClick={onViewInstructions}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               className="border-2 border-[#c9d650] text-[#c9d650] rounded-full px-4 py-2 font-bold text-sm hover:bg-[#c9d650]/10 transition-colors"
             >
               View Instructions
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={onGrade}
-              className={`bg-spark-yellow hover:bg-spark-yellow/90 text-spark-header-bg font-bold rounded-full uppercase tracking-wide transition-all duration-200 shadow-lg border-2 border-spark-header-bg ${
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`bg-spark-yellow hover:bg-spark-yellow/90 text-spark-header-bg font-bold rounded-full uppercase tracking-wide transition-colors duration-200 shadow-lg border-2 border-spark-header-bg ${
                 isWriting ? 'text-xs py-2 px-4' : 'text-sm py-2 px-5'
               }`}
             >
               Grade It
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -123,9 +197,9 @@ const WritingEditor = ({
 
             {/* Font Selector */}
             <select className="bg-spark-progress-bg border border-spark-card-border rounded-lg px-3 py-1.5 text-white text-sm font-medium cursor-pointer">
-              <option>Inter</option>
-              <option>Arial</option>
+              <option>Lexend</option>
               <option>Georgia</option>
+              <option>Arial</option>
             </select>
 
             {/* Size Selector */}
@@ -210,8 +284,7 @@ const WritingEditor = ({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Start writing..."
-            className="flex-1 p-4 bg-transparent text-white text-base resize-none outline-none font-sans"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            className="flex-1 p-4 bg-transparent text-white text-base resize-none outline-none font-body leading-relaxed"
           />
         </div>
       </div>
