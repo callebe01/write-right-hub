@@ -2,69 +2,6 @@ import { TourFlow } from "@/contexts/TourContext";
 
 export const tourFlows: TourFlow[] = [
   {
-    id: "onboarding",
-    name: "Parent Onboarding Experience",
-    description: "A 6-step onboarding flow designed for parents - light, professional, and mobile-responsive",
-    steps: [
-      {
-        id: "child-info",
-        title: "Step 1: Child Information",
-        description: "Parents enter their child's first name and birthdate. The calendar dropdown has year selection for easy navigation. Form validation happens on blur with clear error messages. Notice the progress bar showing 6 total steps.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "interests",
-        title: "Step 2: Multi-Select Interests",
-        description: "Parents select their child's interests from a grid (Roblox, Minecraft, LEGO, etc.). This is multi-select - they can choose as many as they want. There's a '+ Add Answer' option for custom interests. Selected items show with green backgrounds and checkmarks.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "skill-level",
-        title: "Step 3: Writing Skill Level",
-        description: "Single-select for writing ability (struggling, on grade level, ahead, or confident). This helps personalize the AI tutor's approach. Notice how the Continue button is disabled until a selection is made, then pulses to draw attention.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "considerations",
-        title: "Step 4: Special Considerations",
-        description: "Multi-select for learning differences (ADHD, Dyslexia, ESL, etc.) or 'None of the above'. Selecting 'None' automatically deselects all others. This information helps Sage provide better support. Custom options are available via '+ Add Answer'.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "how-it-works",
-        title: "Step 5: How Spark Space Works",
-        description: "An informational screen with feature cards explaining the product (Gamified Quests, AI Tutor Sage, Earn Coins & Rewards, Track Progress). These cards animate in with staggered timing. No form input here - just education before the final step.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "first-challenge",
-        title: "Step 6: Choose First Challenge",
-        description: "Parents choose between 'Homework' (child has an assignment from school) or 'Library' (browse pre-made quests). Each option has a description. The Continue button now says 'Complete Setup' to signal this is the final step.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "persistence",
-        title: "LocalStorage Persistence",
-        description: "All onboarding data is saved to LocalStorage as parents progress through steps. If they refresh or close the browser, they'll resume where they left off. Data expires after 7 days to prevent stale information.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
-        id: "mobile-responsive",
-        title: "Mobile-First Responsive Design",
-        description: "Try resizing the browser! The layout adapts from single-column on mobile to multi-column grids on desktop. Sage's mascot appears at the top center on mobile (instead of being hidden). Progress bar repositions below content on mobile, above on desktop.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-    ],
-  },
-  {
     id: "student-journey",
     name: "Student Writing Journey",
     description: "Experience the complete student flow from quest selection to writing with AI tutor Sage",
