@@ -25,8 +25,9 @@ const ParentOnboarding = () => {
   const {
     data: savedData,
     currentStep: savedStep,
-    saveProgress,
-    clearOnboarding,
+    saveData,
+    saveStep,
+    clearStorage,
   } = useOnboardingStorage();
 
   // Initialize state from saved data or defaults
@@ -37,7 +38,7 @@ const ParentOnboarding = () => {
     interests: savedData?.interests || [],
     skillLevel: savedData?.skillLevel || undefined,
     considerations: savedData?.considerations || [],
-    firstChallengeType: savedData?.firstChallengeType || undefined,
+    firstChallenge: savedData?.firstChallenge || undefined,
   });
 
   // Error states
@@ -74,7 +75,8 @@ const ParentOnboarding = () => {
 
     const nextStep = 2;
     setCurrentStep(nextStep);
-    saveProgress(data, nextStep);
+    saveData(data);
+    saveStep(nextStep);
   };
 
   // Step 2: Interests handlers
@@ -94,7 +96,8 @@ const ParentOnboarding = () => {
 
     const nextStep = 3;
     setCurrentStep(nextStep);
-    saveProgress(data, nextStep);
+    saveData(data);
+    saveStep(nextStep);
   };
 
   // Step 3: Skill Level handlers
@@ -114,7 +117,8 @@ const ParentOnboarding = () => {
 
     const nextStep = 4;
     setCurrentStep(nextStep);
-    saveProgress(data, nextStep);
+    saveData(data);
+    saveStep(nextStep);
   };
 
   // Step 4: Considerations handlers
@@ -134,35 +138,38 @@ const ParentOnboarding = () => {
 
     const nextStep = 5;
     setCurrentStep(nextStep);
-    saveProgress(data, nextStep);
+    saveData(data);
+    saveStep(nextStep);
   };
 
   // Step 5: How It Works handler (no validation needed)
   const handleStep5Continue = () => {
     const nextStep = 6;
     setCurrentStep(nextStep);
-    saveProgress(data, nextStep);
+    saveData(data);
+    saveStep(nextStep);
   };
 
   // Step 6: First Challenge handlers
-  const handleFirstChallengeTypeChange = (type: string) => {
-    setData((prev) => ({ ...prev, firstChallengeType: type }));
+  const handleFirstChallengeChange = (type: "homework" | "quest-library") => {
+    setData((prev) => ({ ...prev, firstChallenge: type }));
     setFirstChallengeError(undefined);
   };
 
   const handleStep6Continue = () => {
     const result = firstChallengeSchema.safeParse({
-      firstChallengeType: data.firstChallengeType,
+      firstChallenge: data.firstChallenge,
     });
 
     if (!result.success) {
       const errors = result.error.flatten().fieldErrors;
-      setFirstChallengeError(errors.firstChallengeType?.[0]);
+      setFirstChallengeError(errors.firstChallenge?.[0]);
       return;
     }
 
     // Save final completed state
-    saveProgress(data, 7); // Step 7 indicates completion
+    saveData(data);
+    saveStep(7); // Step 7 indicates completion
 
     // Navigate to completion page
     navigate("/onboarding-complete");
@@ -219,8 +226,8 @@ const ParentOnboarding = () => {
         return (
           <FirstChallengeStep
             childName={data.childName}
-            firstChallengeType={data.firstChallengeType}
-            onFirstChallengeTypeChange={handleFirstChallengeTypeChange}
+            firstChallenge={data.firstChallenge}
+            onFirstChallengeChange={handleFirstChallengeChange}
             onContinue={handleStep6Continue}
             firstChallengeError={firstChallengeError}
           />

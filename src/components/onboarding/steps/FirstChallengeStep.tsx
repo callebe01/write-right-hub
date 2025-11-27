@@ -3,20 +3,20 @@ import SelectableButton from "../SelectableButton";
 
 interface FirstChallengeStepProps {
   childName: string;
-  firstChallengeType: string | undefined;
-  onFirstChallengeTypeChange: (type: string) => void;
+  firstChallenge: "homework" | "quest-library" | undefined;
+  onFirstChallengeChange: (type: "homework" | "quest-library") => void;
   onContinue: () => void;
   firstChallengeError?: string;
 }
 
 const FirstChallengeStep = ({
   childName,
-  firstChallengeType,
-  onFirstChallengeTypeChange,
+  firstChallenge,
+  onFirstChallengeChange,
   onContinue,
   firstChallengeError,
 }: FirstChallengeStepProps) => {
-  const isValid = firstChallengeType !== undefined && firstChallengeType.length > 0;
+  const isValid = firstChallenge !== undefined && firstChallenge.length > 0;
 
   return (
     <motion.div
@@ -39,8 +39,8 @@ const FirstChallengeStep = ({
       {/* Challenge Type Options */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SelectableButton
-          selected={firstChallengeType === "homework"}
-          onClick={() => onFirstChallengeTypeChange("homework")}
+          selected={firstChallenge === "homework"}
+          onClick={() => onFirstChallengeChange("homework")}
         >
           <div className="text-left w-full py-2">
             <div className="font-bold text-lg mb-1">Homework</div>
@@ -51,8 +51,8 @@ const FirstChallengeStep = ({
         </SelectableButton>
 
         <SelectableButton
-          selected={firstChallengeType === "library"}
-          onClick={() => onFirstChallengeTypeChange("library")}
+          selected={firstChallenge === "quest-library"}
+          onClick={() => onFirstChallengeChange("quest-library")}
         >
           <div className="text-left w-full py-2">
             <div className="font-bold text-lg mb-1">Library</div>

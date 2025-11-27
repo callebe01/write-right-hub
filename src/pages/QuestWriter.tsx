@@ -15,10 +15,15 @@ const QuestWriter = () => {
   const [editorContent, setEditorContent] = useState("");
   const [isInstructionsModalOpen, setIsInstructionsModalOpen] = useState(false);
   const [isSageTyping, setIsSageTyping] = useState(false);
-  const [chatMessages, setChatMessages] = useState([
+  const [chatMessages, setChatMessages] = useState<Array<{
+    id: number;
+    sender: "sage" | "student";
+    text: string;
+    timestamp: Date;
+  }>>([
     {
       id: 1,
-      sender: "sage",
+      sender: "sage" as const,
       text: "Let's get started—this is going to be good.",
       timestamp: new Date()
     }
@@ -36,7 +41,7 @@ const QuestWriter = () => {
     // Add student message
     const studentMessage = {
       id: chatMessages.length + 1,
-      sender: "student",
+      sender: "student" as const,
       text: message,
       timestamp: new Date()
     };
@@ -60,7 +65,7 @@ const QuestWriter = () => {
 
       const sageMessage = {
         id: chatMessages.length + 2,
-        sender: "sage",
+        sender: "sage" as const,
         text: randomResponse,
         timestamp: new Date()
       };

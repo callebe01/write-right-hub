@@ -7,13 +7,6 @@ export const tourFlows: TourFlow[] = [
     description: "A 6-step onboarding flow designed for parents - light, professional, and mobile-responsive",
     steps: [
       {
-        id: "intro",
-        title: "Parent Onboarding Overview",
-        description: "This flow shows how parents set up their child's profile. Notice the light, professional design (white backgrounds, clean typography) - very different from the dark, game-like student UI. The mascot Sage appears at the top on mobile, creating a friendly presence.",
-        route: "/parent-onboarding",
-        placement: "center",
-      },
-      {
         id: "child-info",
         title: "Step 1: Child Information",
         description: "Parents enter their child's first name and birthdate. The calendar dropdown has year selection for easy navigation. Form validation happens on blur with clear error messages. Notice the progress bar showing 6 total steps.",
