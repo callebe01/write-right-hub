@@ -12,7 +12,6 @@ interface InstructionsModalProps {
     title: string;
     type: string;
     wordCount: string;
-    rarity: string;
     instructions: string[];
     image: string;
     points: number;
@@ -20,32 +19,6 @@ interface InstructionsModalProps {
 }
 
 const InstructionsModal = ({ isOpen, onClose, assignment }: InstructionsModalProps) => {
-  // Get rarity styling
-  const rarityColors: Record<string, { border: string; text: string; bg: string }> = {
-    epic: {
-      border: "border-rarity-epic",
-      text: "text-rarity-epic",
-      bg: "bg-purple-950/50"
-    },
-    rare: {
-      border: "border-rarity-rare",
-      text: "text-rarity-rare",
-      bg: "bg-blue-950/50"
-    },
-    uncommon: {
-      border: "border-rarity-uncommon",
-      text: "text-rarity-uncommon",
-      bg: "bg-green-950/50"
-    },
-    common: {
-      border: "border-rarity-common",
-      text: "text-rarity-common",
-      bg: "bg-gray-950/50"
-    }
-  };
-
-  const rarityStyle = rarityColors[assignment.rarity] || rarityColors.common;
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-gradient-to-br from-gray-900/95 to-gray-950/95 border-4 border-spark-card-border">
@@ -73,7 +46,7 @@ const InstructionsModal = ({ isOpen, onClose, assignment }: InstructionsModalPro
 
           {/* Badges */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`px-3 py-1.5 rounded-full font-bold text-sm ${rarityStyle.bg} ${rarityStyle.text} border ${rarityStyle.border}`}>
+            <span className="px-3 py-1.5 rounded-full font-bold text-sm bg-spark-teal/20 text-spark-teal border border-spark-teal/50">
               {assignment.type}
             </span>
             <span className="px-3 py-1.5 rounded-full border-2 border-white/30 text-white font-bold text-sm bg-black/20">
