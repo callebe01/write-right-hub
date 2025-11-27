@@ -8,7 +8,10 @@ interface AssignmentCardProps {
   type: string;
   wordCount: string;
   points: number;
+  rarity: string;
   features: string[];
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const AssignmentCard = ({
@@ -18,13 +21,49 @@ const AssignmentCard = ({
   type,
   wordCount,
   points,
-  features
+  rarity,
+  features,
+  onMouseEnter,
+  onMouseLeave
 }: AssignmentCardProps) => {
   const navigate = useNavigate();
+  // Get rarity color for border and glow
+  const rarityColors: Record<string, { border: string; glow: string; glowSubtle: string; text: string; bg: string }> = {
+    epic: {
+      border: "border-rarity-epic",
+      glow: "rgba(168, 85, 247, 0.6)",
+      glowSubtle: "rgba(168, 85, 247, 0.25)",
+      text: "text-rarity-epic",
+      bg: "bg-purple-950/50"
+    },
+    rare: {
+      border: "border-rarity-rare",
+      glow: "rgba(59, 130, 246, 0.6)",
+      glowSubtle: "rgba(59, 130, 246, 0.25)",
+      text: "text-rarity-rare",
+      bg: "bg-blue-950/50"
+    },
+    uncommon: {
+      border: "border-rarity-uncommon",
+      glow: "rgba(34, 197, 94, 0.6)",
+      glowSubtle: "rgba(34, 197, 94, 0.25)",
+      text: "text-rarity-uncommon",
+      bg: "bg-green-950/50"
+    },
+    common: {
+      border: "border-rarity-common",
+      glow: "rgba(156, 163, 175, 0.6)",
+      glowSubtle: "rgba(156, 163, 175, 0.25)",
+      text: "text-rarity-common",
+      bg: "bg-gray-950/50"
+    }
+  };
+
+  const rarityStyle = rarityColors[rarity] || rarityColors.common;
 
   return (
     <motion.div
-      className="relative rounded-[32px] border-4 border-spark-card-border overflow-hidden cursor-pointer bg-gradient-to-br from-gray-900/95 to-gray-950/95 backdrop-blur-sm shadow-2xl"
+      className={`relative rounded-[32px] border-4 ${rarityStyle.border} overflow-hidden cursor-pointer bg-gradient-to-br from-gray-900/95 to-gray-950/95 backdrop-blur-sm`}
       initial={{ scale: 1, y: 0 }}
       whileHover={{
         scale: 1.05,
@@ -36,6 +75,11 @@ const AssignmentCard = ({
         stiffness: 400,
         damping: 17
       }}
+      style={{
+        boxShadow: `0 0 20px ${rarityStyle.glowSubtle}, 0 0 40px ${rarityStyle.glowSubtle}, 0 12px 24px rgba(0, 0, 0, 0.4)`
+      }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {/* Hero Image at Top */}
       <div className="relative h-48 overflow-hidden">
@@ -70,7 +114,7 @@ const AssignmentCard = ({
         {/* Badges Row */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* Type Badge */}
-          <span className="px-3 py-1.5 rounded-full font-bold text-sm bg-spark-teal/20 text-spark-teal border border-spark-teal/50">
+          <span className={`px-3 py-1.5 rounded-full font-bold text-sm ${rarityStyle.bg} ${rarityStyle.text} border ${rarityStyle.border}`}>
             {type}
           </span>
 
@@ -91,6 +135,14 @@ const AssignmentCard = ({
         </motion.button>
       </div>
 
+      {/* Animated glow effect overlay */}
+      <div
+        className="absolute inset-0 rounded-[32px] pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at 50% 0%, ${rarityStyle.glowSubtle} 0%, transparent 50%)`,
+          opacity: 0.15
+        }}
+      />
     </motion.div>
   );
 };

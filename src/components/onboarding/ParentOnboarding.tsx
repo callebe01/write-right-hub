@@ -171,8 +171,8 @@ const ParentOnboarding = () => {
     saveData(data);
     saveStep(7); // Step 7 indicates completion
 
-    // Navigate to completion page
-    navigate("/onboarding-complete");
+    // Navigate to Explore page
+    navigate("/explore");
   };
 
   // Render current step
