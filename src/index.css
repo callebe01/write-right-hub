@@ -130,4 +130,25 @@ All colors MUST be HSL.
     pointer-events: none;
     opacity: 0.5;
   }
+
+  /* Parent Onboarding Theme - Light, professional design for parent audience */
+  .bg-parent-light {
+    @apply bg-gradient-to-br from-white to-gray-50;
+  }
+
+  .text-parent-heading {
+    @apply text-gray-900 font-game;
+  }
+
+  .text-parent-body {
+    @apply text-gray-600;
+  }
+
+  .btn-parent-primary {
+    @apply bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-400 hover:to-yellow-300 text-gray-900 font-bold shadow-lg;
+  }
+
+  .btn-parent-disabled {
+    @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+  }
 }
