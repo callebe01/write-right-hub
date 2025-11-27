@@ -18,36 +18,6 @@ const QuestInstructions = () => {
     );
   }
 
-  // Get rarity styling
-  const rarityColors: Record<string, { border: string; glow: string; text: string; bg: string }> = {
-    epic: {
-      border: "border-rarity-epic",
-      glow: "rgba(168, 85, 247, 0.6)",
-      text: "text-rarity-epic",
-      bg: "bg-purple-950/50"
-    },
-    rare: {
-      border: "border-rarity-rare",
-      glow: "rgba(59, 130, 246, 0.6)",
-      text: "text-rarity-rare",
-      bg: "bg-blue-950/50"
-    },
-    uncommon: {
-      border: "border-rarity-uncommon",
-      glow: "rgba(34, 197, 94, 0.6)",
-      text: "text-rarity-uncommon",
-      bg: "bg-green-950/50"
-    },
-    common: {
-      border: "border-rarity-common",
-      glow: "rgba(156, 163, 175, 0.6)",
-      text: "text-rarity-common",
-      bg: "bg-gray-950/50"
-    }
-  };
-
-  const rarityStyle = rarityColors[assignment.rarity] || rarityColors.common;
-
   return (
     <div className="min-h-screen bg-spark-main-atmospheric relative overflow-hidden">
       <DecorativeDots />
@@ -55,12 +25,8 @@ const QuestInstructions = () => {
       <main className="relative z-10 min-h-screen flex items-center justify-center py-12 px-6">
         <div className="max-w-4xl w-full space-y-8">
           {/* Quest Header */}
-          <div
-            className={`rounded-[32px] border-4 ${rarityStyle.border} bg-gradient-to-br from-gray-900/95 to-gray-950/95 backdrop-blur-sm p-6`}
-            style={{
-              boxShadow: `0 0 40px ${rarityStyle.glow}, 0 0 80px ${rarityStyle.glow}, 0 20px 40px rgba(0, 0, 0, 0.5)`
-            }}
-          >
+          <div className="rounded-[32px] border-4 border-spark-card-border bg-gradient-to-br from-gray-900/95 to-gray-950/95 backdrop-blur-sm p-6 shadow-2xl">
+
             <div className="flex items-center gap-6">
               {/* Image */}
               <img
@@ -79,7 +45,7 @@ const QuestInstructions = () => {
 
             {/* Badges */}
             <div className="flex items-center gap-2 mt-4 flex-wrap">
-              <span className={`px-3 py-1.5 rounded-full font-bold text-sm ${rarityStyle.bg} ${rarityStyle.text} border ${rarityStyle.border}`}>
+              <span className="px-3 py-1.5 rounded-full font-bold text-sm bg-spark-teal/20 text-spark-teal border border-spark-teal/50">
                 {assignment.type}
               </span>
               <span className="px-3 py-1.5 rounded-full border-2 border-white/30 text-white font-bold text-sm bg-black/20">
@@ -97,12 +63,8 @@ const QuestInstructions = () => {
           </div>
 
           {/* Instructions Panel */}
-          <div
-            className={`rounded-[32px] border-4 ${rarityStyle.border}/50 bg-gradient-to-br from-gray-900/80 to-gray-950/80 backdrop-blur-sm p-8`}
-            style={{
-              boxShadow: `0 0 20px ${rarityStyle.glow}, 0 10px 30px rgba(0, 0, 0, 0.4)`
-            }}
-          >
+          <div className="rounded-[32px] border-4 border-spark-card-border/50 bg-gradient-to-br from-gray-900/80 to-gray-950/80 backdrop-blur-sm p-8 shadow-xl">
+
             <h2 className="font-game text-3xl text-white uppercase mb-6">Instructions</h2>
             <div className="space-y-4">
               {assignment.instructions.map((paragraph, index) => (

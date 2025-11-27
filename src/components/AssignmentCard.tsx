@@ -8,7 +8,6 @@ interface AssignmentCardProps {
   type: string;
   wordCount: string;
   points: number;
-  rarity: string;
   features: string[];
 }
 
@@ -19,43 +18,13 @@ const AssignmentCard = ({
   type,
   wordCount,
   points,
-  rarity,
   features
 }: AssignmentCardProps) => {
   const navigate = useNavigate();
-  // Get rarity color for border and glow
-  const rarityColors: Record<string, { border: string; glow: string; text: string; bg: string }> = {
-    epic: {
-      border: "border-rarity-epic",
-      glow: "rgba(168, 85, 247, 0.6)",
-      text: "text-rarity-epic",
-      bg: "bg-purple-950/50"
-    },
-    rare: {
-      border: "border-rarity-rare",
-      glow: "rgba(59, 130, 246, 0.6)",
-      text: "text-rarity-rare",
-      bg: "bg-blue-950/50"
-    },
-    uncommon: {
-      border: "border-rarity-uncommon",
-      glow: "rgba(34, 197, 94, 0.6)",
-      text: "text-rarity-uncommon",
-      bg: "bg-green-950/50"
-    },
-    common: {
-      border: "border-rarity-common",
-      glow: "rgba(156, 163, 175, 0.6)",
-      text: "text-rarity-common",
-      bg: "bg-gray-950/50"
-    }
-  };
-
-  const rarityStyle = rarityColors[rarity] || rarityColors.common;
 
   return (
     <motion.div
-      className={`relative rounded-[32px] border-4 ${rarityStyle.border} overflow-hidden cursor-pointer bg-gradient-to-br from-gray-900/95 to-gray-950/95 backdrop-blur-sm`}
+      className="relative rounded-[32px] border-4 border-spark-card-border overflow-hidden cursor-pointer bg-gradient-to-br from-gray-900/95 to-gray-950/95 backdrop-blur-sm shadow-2xl"
       initial={{ scale: 1, y: 0 }}
       whileHover={{
         scale: 1.05,
@@ -67,9 +36,6 @@ const AssignmentCard = ({
         stiffness: 400,
         damping: 17
       }}
-      style={{
-        boxShadow: `0 0 40px ${rarityStyle.glow}, 0 0 80px ${rarityStyle.glow}, 0 20px 40px rgba(0, 0, 0, 0.5)`
-      }}
     >
       {/* Hero Image at Top */}
       <div className="relative h-48 overflow-hidden">
@@ -80,11 +46,6 @@ const AssignmentCard = ({
         />
         {/* Gradient overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
-
-        {/* Rarity badge in corner */}
-        <div className={`absolute top-3 right-3 px-3 py-1.5 rounded-full font-black text-xs uppercase ${rarityStyle.bg} ${rarityStyle.text} border-2 ${rarityStyle.border} backdrop-blur-sm`}>
-          {rarity}
-        </div>
 
         {/* Coins in top-left */}
         <div className="absolute top-3 left-3 flex items-center gap-1 bg-black/60 rounded-full px-2 py-1 border border-spark-coin-gold/50 backdrop-blur-sm">
@@ -109,7 +70,7 @@ const AssignmentCard = ({
         {/* Badges Row */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* Type Badge */}
-          <span className={`px-3 py-1.5 rounded-full font-bold text-sm ${rarityStyle.bg} ${rarityStyle.text} border ${rarityStyle.border}`}>
+          <span className="px-3 py-1.5 rounded-full font-bold text-sm bg-spark-teal/20 text-spark-teal border border-spark-teal/50">
             {type}
           </span>
 
@@ -130,14 +91,6 @@ const AssignmentCard = ({
         </motion.button>
       </div>
 
-      {/* Animated glow effect overlay */}
-      <div
-        className="absolute inset-0 rounded-[32px] pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at 50% 0%, ${rarityStyle.glow} 0%, transparent 50%)`,
-          opacity: 0.3
-        }}
-      />
     </motion.div>
   );
 };

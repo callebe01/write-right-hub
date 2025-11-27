@@ -16,7 +16,6 @@ export const assignments = [
     type: "Quick Write",
     wordCount: "100 words",
     points: 25,
-    rarity: "rare",
     features: ["⚡ Speed Run", "⏱️ Time Limited", "💎 Rare Loot"],
     instructions: [
       "Imagine you've traveled back in time to an important historical event we've studied in class.",
@@ -31,7 +30,6 @@ export const assignments = [
     type: "Essay",
     wordCount: "500 words",
     points: 50,
-    rarity: "epic",
     features: ["⚔️ Boss Battle", "✨ XP++", "🌟 Glowing Border"],
     instructions: [
       "You are a pioneer traveling west during the 1800s. Life on the trail is difficult, but you're determined to reach your destination.",
@@ -46,7 +44,6 @@ export const assignments = [
     type: "Quick Write",
     wordCount: "100 words",
     points: 15,
-    rarity: "uncommon",
     features: ["📅 Daily Challenge", "🎯 Easy Win", "🔄 Repeatable"],
     instructions: [
       "Write about your family! Describe the people who are important to you and what makes them special.",
@@ -61,7 +58,6 @@ export const assignments = [
     type: "Quick Write",
     wordCount: "100 words",
     points: 20,
-    rarity: "uncommon",
     features: ["⛏️ Quest Chain", "🏆 Achievement", "📖 Story Mode"],
     instructions: [
       "The year is 1849, and gold has been discovered in California! You've decided to join the Gold Rush and seek your fortune.",
@@ -108,7 +104,6 @@ const Index = () => {
                   type={assignment.type}
                   wordCount={assignment.wordCount}
                   points={assignment.points}
-                  rarity={assignment.rarity}
                   features={assignment.features}
                 />
               </motion.div>
